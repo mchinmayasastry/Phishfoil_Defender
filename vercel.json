@@ -1,0 +1,19 @@
+{
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.11",
+      "maxDuration": 10,
+      "includeFiles": [
+        "phishguard/src/**",
+        "phishguard/web/**",
+        "phishguard/models/**",
+        "phishguard/**/*.py",
+        "phishguard/*.py"
+      ]
+    }
+  },
+  "routes": [
+    { "src": "/(.*)", "dest": "/api/index.py" }
+  ],
+  "installCommand": "pip install -r phishguard/requirements.txt"
+}
