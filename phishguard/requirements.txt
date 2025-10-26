@@ -19,8 +19,11 @@ tldextract>=3.1.2
 python-whois>=0.8.0
 
 # Machine Learning
+<<<<<<< HEAD
 tensorflow>=2.6.0
 xgboost>=1.4.0
+=======
+>>>>>>> ff6c34f (initial commit)
 
 # Development
 tox>=3.24.0

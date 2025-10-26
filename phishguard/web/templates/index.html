@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+<<<<<<< HEAD
 {% block title %}PhishGuard - AI-Powered Phishing Detection{% endblock %}
 
 {% block content %}
@@ -12,21 +13,47 @@
     
     <!-- URL Analysis Form -->
     <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
+=======
+{% block title %}Phishfoil_Defender - AI-Powered Phishing Detection{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero text-center py-16 rounded-xl mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Protect Yourself from Phishing Attacks</h1>
+    <p class="text-xl mb-8 max-w-3xl mx-auto">
+        Phishfoil_Defender uses advanced AI to detect and analyze phishing and malicious links in real-time.
+    </p>
+    
+    <!-- URL Analysis Form -->
+    <div class="max-w-2xl mx-auto card dark:bg-gray-800 dark:text-gray-100">
+>>>>>>> ff6c34f (initial commit)
         <div class="flex">
             <input 
                 type="text" 
                 id="url-input" 
                 placeholder="Enter URL to analyze..." 
+<<<<<<< HEAD
                 class="flex-grow px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
             >
             <button 
                 id="analyze-btn" 
                 class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-r-lg transition duration-200"
+=======
+                class="flex-grow px-4 py-3 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100"
+            >
+            <button 
+                id="analyze-btn" 
+                class="btn-primary px-6 py-3 rounded-r-lg dark:bg-blue-600 dark:hover:bg-blue-700"
+>>>>>>> ff6c34f (initial commit)
             >
                 Analyze
             </button>
         </div>
+<<<<<<< HEAD
         <div class="mt-3 text-sm text-gray-200">
+=======
+        <div class="mt-3 text-sm secondary-text">
+>>>>>>> ff6c34f (initial commit)
             Example: https://example.com/login
         </div>
     </div>
@@ -35,27 +62,48 @@
 <!-- Loading Indicator -->
 <div id="loading" class="hidden text-center py-8">
     <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+<<<<<<< HEAD
     <p class="text-gray-600">Analyzing URL, please wait...</p>
+=======
+    <p class="secondary-text">Analyzing URL, please wait...</p>
+>>>>>>> ff6c34f (initial commit)
 </div>
 
 <!-- Results Section -->
 <div id="results" class="hidden mb-12">
+<<<<<<< HEAD
     <div class="bg-white rounded-xl shadow-md overflow-hidden">
         <div class="p-6">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Analysis Results</h2>
+=======
+    <div class="card rounded-xl overflow-hidden">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-accent">Analysis Results</h2>
+>>>>>>> ff6c34f (initial commit)
                 <span id="result-badge" class="px-4 py-2 rounded-full text-sm font-semibold"></span>
             </div>
             
             <div class="mb-6">
+<<<<<<< HEAD
                 <h3 class="text-lg font-semibold text-gray-700 mb-2">URL Analyzed</h3>
                 <p id="analyzed-url" class="text-blue-600 break-all"></p>
+=======
+                <h3 class="text-lg font-semibold mb-2">URL Analyzed</h3>
+                <p id="analyzed-url" class="text-accent break-all"></p>
+>>>>>>> ff6c34f (initial commit)
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
+<<<<<<< HEAD
                     <h3 class="text-lg font-semibold text-gray-700 mb-3">Risk Assessment</h3>
                     <div class="bg-gray-100 rounded-lg p-4">
+=======
+                    <h3 class="text-lg font-semibold mb-3 text-accent">Risk Assessment</h3>
+                    <div class="card">
+>>>>>>> ff6c34f (initial commit)
                         <div class="mb-2 flex justify-between">
                             <span>Risk Level:</span>
                             <span id="risk-level" class="font-semibold"></span>
@@ -74,6 +122,7 @@
                 </div>
                 
                 <div>
+<<<<<<< HEAD
                     <h3 class="text-lg font-semibold text-gray-700 mb-3">Domain Information</h3>
                     <div class="bg-gray-50 rounded-lg p-4 space-y-2">
                         <div class="flex justify-between">
@@ -90,6 +139,24 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-600">URL Length:</span>
+=======
+                    <h3 class="text-lg font-semibold mb-3 text-accent">Domain Information</h3>
+                    <div class="card p-4 space-y-2">
+                        <div class="flex justify-between">
+                            <span class="secondary-text">Domain:</span>
+                            <span id="domain" class="font-medium"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="secondary-text">TLD:</span>
+                            <span id="tld" class="font-medium"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="secondary-text">HTTPS:</span>
+                            <span id="https" class="font-medium"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="secondary-text">URL Length:</span>
+>>>>>>> ff6c34f (initial commit)
                             <span id="url-length" class="font-medium"></span>
                         </div>
                     </div>
@@ -97,15 +164,24 @@
             </div>
             
             <div class="mb-6">
+<<<<<<< HEAD
                 <h3 class="text-lg font-semibold text-gray-700 mb-3">Warnings & Issues</h3>
                 <div id="warnings" class="space-y-2">
                     <!-- Warnings will be inserted here -->
                 </div>
                 <p id="no-warnings" class="text-green-600">
+=======
+                <h3 class="text-lg font-semibold mb-3 text-accent">Warnings & Issues</h3>
+                <div id="warnings" class="space-y-2">
+                    <!-- Warnings will be inserted here -->
+                </div>
+                <p id="no-warnings" class="safe-box">
+>>>>>>> ff6c34f (initial commit)
                     <i class="fas fa-check-circle mr-2"></i> No security issues detected.
                 </p>
             </div>
             
+<<<<<<< HEAD
             <div class="mb-6">
                 <h3 class="text-lg font-semibold text-gray-700 mb-3">Explanation</h3>
                 <div id="explanation" class="bg-gray-50 rounded-lg p-4 text-sm text-gray-700 space-y-1"></div>
@@ -119,16 +195,38 @@
                     <div class="ml-3">
                         <h3 class="text-sm font-medium text-blue-800">Safety Tip</h3>
                         <div id="safety-tip" class="mt-2 text-sm text-blue-700">
+=======
+            <div class="card mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle text-accent text-xl"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium">Safety Tip</h3>
+                        <div id="safety-tip" class="mt-2 text-sm secondary-text">
+>>>>>>> ff6c34f (initial commit)
                             Always verify the URL before entering any personal information.
                         </div>
                     </div>
                 </div>
             </div>
             
+<<<<<<< HEAD
             <div class="flex justify-end">
                 <button 
                     id="new-analysis" 
                     class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+=======
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">Explanation</h3>
+                <div id="explanation" class="card p-4 text-sm space-y-1"></div>
+            </div>
+            
+            <div class="flex justify-end">
+                <button 
+                    id="new-analysis" 
+                    class="btn-primary px-4 py-2 rounded-md text-sm font-medium"
+>>>>>>> ff6c34f (initial commit)
                 >
                     Analyze Another URL
                 </button>
@@ -138,37 +236,66 @@
 </div>
 
 <!-- How It Works Section -->
+<<<<<<< HEAD
 <section id="how-it-works" class="py-12 bg-gray-50 rounded-xl mb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">How PhishGuard Works</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-white p-6 rounded-lg shadow-md">
+=======
+<section id="how-it-works" class="py-12 rounded-xl mb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">How Phishfoil_Defender Works</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card">
+>>>>>>> ff6c34f (initial commit)
                 <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                     <i class="fas fa-search text-blue-600 text-xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">URL Analysis</h3>
+<<<<<<< HEAD
                 <p class="text-gray-600">
+=======
+                <p class="secondary-text">
+>>>>>>> ff6c34f (initial commit)
                     Our system analyzes the URL structure, domain information, and other technical indicators to detect potential threats.
                 </p>
             </div>
             
+<<<<<<< HEAD
             <div class="bg-white p-6 rounded-lg shadow-md">
+=======
+            <div class="card">
+>>>>>>> ff6c34f (initial commit)
                 <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
                     <i class="fas fa-brain text-green-600 text-xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">AI-Powered Detection</h3>
+<<<<<<< HEAD
                 <p class="text-gray-600">
+=======
+                <p class="secondary-text">
+>>>>>>> ff6c34f (initial commit)
                     Advanced machine learning models evaluate the URL against known phishing patterns and malicious indicators.
                 </p>
             </div>
             
+<<<<<<< HEAD
             <div class="bg-white p-6 rounded-lg shadow-md">
+=======
+            <div class="card">
+>>>>>>> ff6c34f (initial commit)
                 <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
                     <i class="fas fa-shield-alt text-purple-600 text-xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">Real-Time Protection</h3>
+<<<<<<< HEAD
                 <p class="text-gray-600">
+=======
+                <p class="secondary-text">
+>>>>>>> ff6c34f (initial commit)
                     Get instant results with detailed analysis and safety recommendations to protect yourself online.
                 </p>
             </div>
@@ -179,12 +306,21 @@
 <!-- API Section -->
 <section id="api" class="py-12 mb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<<<<<<< HEAD
         <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">API Access</h2>
         
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="p-6">
                 <h3 class="text-xl font-semibold mb-4">Integrate PhishGuard into Your Application</h3>
                 <p class="text-gray-600 mb-6">
+=======
+        <h2 class="text-3xl font-bold text-center mb-12">API Access</h2>
+        
+        <div class="card overflow-hidden">
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-4">Integrate Phishfoil_Defender into Your Application</h3>
+                <p class="secondary-text mb-6">
+>>>>>>> ff6c34f (initial commit)
                     Use our REST API to check URLs programmatically. Get started with our simple API endpoint.
                 </p>
                 
@@ -218,7 +354,11 @@ Content-Type: application/json
                 <div class="flex justify-center">
                     <a 
                         href="#" 
+<<<<<<< HEAD
                         class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+=======
+                        class="btn-primary text-base"
+>>>>>>> ff6c34f (initial commit)
                     >
                         Get API Key
                         <i class="fas fa-arrow-right ml-2"></i>
@@ -230,6 +370,7 @@ Content-Type: application/json
 </section>
 
 <!-- About Section -->
+<<<<<<< HEAD
 <section id="about" class="py-12 bg-gray-50 rounded-xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">About PhishGuard</h2>
@@ -243,12 +384,32 @@ Content-Type: application/json
                 
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Our Technology</h3>
                 <p class="text-gray-600 mb-6">
+=======
+<section id="about" class="py-12 rounded-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">About Phishfoil_Defender</h2>
+        
+        <div class="card p-8">
+            <div class="prose max-w-none">
+                <p class="secondary-text mb-6">
+                    Phishfoil_Defender is an AI-powered solution designed to protect users from phishing attacks and malicious websites. 
+                    Our mission is to make the internet a safer place by providing accurate and reliable URL analysis.
+                </p>
+                
+                <h3 class="text-xl font-semibold mb-3">Our Technology</h3>
+                <p class="secondary-text mb-6">
+>>>>>>> ff6c34f (initial commit)
                     We use a combination of machine learning algorithms, threat intelligence feeds, and real-time analysis 
                     to detect and prevent phishing attempts. Our system continuously learns and adapts to new threats as they emerge.
                 </p>
                 
+<<<<<<< HEAD
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Stay Safe Online</h3>
                 <ul class="list-disc pl-5 text-gray-600 space-y-2 mb-6">
+=======
+                <h3 class="text-xl font-semibold mb-3">Stay Safe Online</h3>
+                <ul class="list-disc pl-5 secondary-text space-y-2 mb-6">
+>>>>>>> ff6c34f (initial commit)
                     <li>Always verify the URL before entering sensitive information</li>
                     <li>Look for the padlock icon and "https://" in the address bar</li>
                     <li>Be cautious of unsolicited emails or messages with links</li>
@@ -256,10 +417,17 @@ Content-Type: application/json
                     <li>Use strong, unique passwords for different accounts</li>
                 </ul>
                 
+<<<<<<< HEAD
                 <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
                     <p class="text-blue-700">
                         <i class="fas fa-info-circle mr-2"></i>
                         PhishGuard is for educational and informational purposes only. Always exercise caution when browsing the web.
+=======
+                <div class="card">
+                    <p class="secondary-text">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Phishfoil_Defender is for educational and informational purposes only. Always exercise caution when browsing the web.
+>>>>>>> ff6c34f (initial commit)
                     </p>
                 </div>
             </div>
@@ -340,6 +508,19 @@ Content-Type: application/json
             document.getElementById('analyzed-url').textContent = data.url;
             document.getElementById('risk-level').textContent = getRiskLevel(data.risk_score);
             document.getElementById('confidence').textContent = `${Math.round(data.confidence * 100)}%`;
+<<<<<<< HEAD
+=======
+            // Apply contrasting color to risk level text
+            const riskLevelEl = document.getElementById('risk-level');
+            riskLevelEl.classList.remove('text-accent-green','text-accent','text-warning');
+            if (data.risk_score < 0.3) {
+                riskLevelEl.classList.add('text-accent-green');
+            } else if (data.risk_score < 0.7) {
+                riskLevelEl.classList.add('text-accent');
+            } else {
+                riskLevelEl.classList.add('text-warning');
+            }
+>>>>>>> ff6c34f (initial commit)
             
             // Update domain info
             const domainInfo = extractDomainInfo(data.url);
@@ -368,9 +549,15 @@ Content-Type: application/json
                 warningsContainer.innerHTML = '';
                 data.warnings.forEach(warning => {
                     const warningElement = document.createElement('div');
+<<<<<<< HEAD
                     warningElement.className = 'flex items-start p-3 bg-red-50 rounded-md';
                     warningElement.innerHTML = `
                         <i class="fas fa-exclamation-triangle text-red-500 mt-1 mr-2"></i>
+=======
+                    warningElement.className = 'alert-danger flex items-start';
+                    warningElement.innerHTML = `
+                        <i class="fas fa-exclamation-triangle mt-1 mr-2"></i>
+>>>>>>> ff6c34f (initial commit)
                         <span>${warning}</span>
                     `;
                     warningsContainer.appendChild(warningElement);
@@ -415,10 +602,17 @@ Content-Type: application/json
             const resultBadge = document.getElementById('result-badge');
             if (data.is_malicious) {
                 resultBadge.textContent = 'Malicious';
+<<<<<<< HEAD
                 resultBadge.className = 'px-4 py-2 rounded-full bg-red-100 text-red-800 text-sm font-semibold';
             } else {
                 resultBadge.textContent = 'Safe';
                 resultBadge.className = 'px-4 py-2 rounded-full bg-green-100 text-green-800 text-sm font-semibold';
+=======
+                resultBadge.className = 'px-4 py-2 rounded-full text-sm font-semibold text-warning border border-red-700';
+            } else {
+                resultBadge.textContent = 'Safe';
+                resultBadge.className = 'px-4 py-2 rounded-full text-sm font-semibold text-accent-green border border-green-600';
+>>>>>>> ff6c34f (initial commit)
             }
             
             // Show results

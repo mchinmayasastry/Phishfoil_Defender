@@ -18,7 +18,11 @@ from ..core.model_utils import load_model_bundle, features_to_vector
 
 # Initialize FastAPI app
 app = FastAPI(
+<<<<<<< HEAD
     title="PhishGuard API",
+=======
+    title="Phishfoil_Defender API",
+>>>>>>> ff6c34f (initial commit)
     description="API for detecting phishing and malicious URLs using machine learning",
     version="1.0.0"
 )
@@ -155,9 +159,15 @@ async def startup_event():
     """Initialize models and other resources."""
     global model_bundle
 
+<<<<<<< HEAD
     # Resolve model path relative to project root (phishguard)
     project_root = Path(__file__).parent.parent.parent
     default_path = project_root / "models" / "phishguard_model.joblib"
+=======
+    # Resolve model path relative to project root (Phishfoil_Defender)
+    project_root = Path(__file__).parent.parent.parent
+    default_path = project_root / "models" / "Phishfoil_Defender_model.joblib"
+>>>>>>> ff6c34f (initial commit)
     model_path = Path(os.getenv("MODEL_PATH", str(default_path)))
 
     bundle = load_model_bundle(str(model_path))

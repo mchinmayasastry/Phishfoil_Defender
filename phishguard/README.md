@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 # PhishGuard: AI-Powered Phishing & Malicious Link Analyzer
 
 PhishGuard is a machine learning-based solution designed to detect and analyze phishing attempts and malicious links in real-time. It combines multiple detection techniques to provide accurate and explainable results.
+=======
+# Phishfoil_Defender: AI-Powered Phishing & Malicious Link Analyzer
+
+Phishfoil_Defender is a machine learning-based solution designed to detect and analyze phishing attempts and malicious links in real-time. It combines multiple detection techniques to provide accurate and explainable results.
+>>>>>>> ff6c34f (initial commit)
 
 ## Features
 
@@ -16,7 +22,11 @@ PhishGuard is a machine learning-based solution designed to detect and analyze p
 1. Clone the repository:
    ```bash
    git clone <repository-url>
+<<<<<<< HEAD
    cd phishguard
+=======
+   cd Phishfoil_Defender
+>>>>>>> ff6c34f (initial commit)
    ```
 
 2. Create a virtual environment (recommended):
