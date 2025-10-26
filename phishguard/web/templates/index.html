@@ -1,0 +1,483 @@
+{% extends "base.html" %}
+
+{% block title %}PhishGuard - AI-Powered Phishing Detection{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="text-center py-16 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-xl mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Protect Yourself from Phishing Attacks</h1>
+    <p class="text-xl mb-8 max-w-3xl mx-auto">
+        PhishGuard uses advanced AI to detect and analyze phishing and malicious links in real-time.
+    </p>
+    
+    <!-- URL Analysis Form -->
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <div class="flex">
+            <input 
+                type="text" 
+                id="url-input" 
+                placeholder="Enter URL to analyze..." 
+                class="flex-grow px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
+            >
+            <button 
+                id="analyze-btn" 
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-r-lg transition duration-200"
+            >
+                Analyze
+            </button>
+        </div>
+        <div class="mt-3 text-sm text-gray-200">
+            Example: https://example.com/login
+        </div>
+    </div>
+</div>
+
+<!-- Loading Indicator -->
+<div id="loading" class="hidden text-center py-8">
+    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+    <p class="text-gray-600">Analyzing URL, please wait...</p>
+</div>
+
+<!-- Results Section -->
+<div id="results" class="hidden mb-12">
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Analysis Results</h2>
+                <span id="result-badge" class="px-4 py-2 rounded-full text-sm font-semibold"></span>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">URL Analyzed</h3>
+                <p id="analyzed-url" class="text-blue-600 break-all"></p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Risk Assessment</h3>
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <div class="mb-2 flex justify-between">
+                            <span>Risk Level:</span>
+                            <span id="risk-level" class="font-semibold"></span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                            <div id="risk-bar" class="h-2.5 rounded-full"></div>
+                        </div>
+                        <div class="mb-2 flex justify-between">
+                            <span>Confidence:</span>
+                            <span id="confidence" class="font-semibold"></span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div id="confidence-bar" class="h-2.5 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Domain Information</h3>
+                    <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Domain:</span>
+                            <span id="domain" class="font-medium"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">TLD:</span>
+                            <span id="tld" class="font-medium"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">HTTPS:</span>
+                            <span id="https" class="font-medium"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">URL Length:</span>
+                            <span id="url-length" class="font-medium"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-3">Warnings & Issues</h3>
+                <div id="warnings" class="space-y-2">
+                    <!-- Warnings will be inserted here -->
+                </div>
+                <p id="no-warnings" class="text-green-600">
+                    <i class="fas fa-check-circle mr-2"></i> No security issues detected.
+                </p>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-3">Explanation</h3>
+                <div id="explanation" class="bg-gray-50 rounded-lg p-4 text-sm text-gray-700 space-y-1"></div>
+            </div>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle text-blue-500 text-xl"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">Safety Tip</h3>
+                        <div id="safety-tip" class="mt-2 text-sm text-blue-700">
+                            Always verify the URL before entering any personal information.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-end">
+                <button 
+                    id="new-analysis" 
+                    class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                    Analyze Another URL
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-12 bg-gray-50 rounded-xl mb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">How PhishGuard Works</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-search text-blue-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">URL Analysis</h3>
+                <p class="text-gray-600">
+                    Our system analyzes the URL structure, domain information, and other technical indicators to detect potential threats.
+                </p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-brain text-green-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">AI-Powered Detection</h3>
+                <p class="text-gray-600">
+                    Advanced machine learning models evaluate the URL against known phishing patterns and malicious indicators.
+                </p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-shield-alt text-purple-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Real-Time Protection</h3>
+                <p class="text-gray-600">
+                    Get instant results with detailed analysis and safety recommendations to protect yourself online.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- API Section -->
+<section id="api" class="py-12 mb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">API Access</h2>
+        
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-4">Integrate PhishGuard into Your Application</h3>
+                <p class="text-gray-600 mb-6">
+                    Use our REST API to check URLs programmatically. Get started with our simple API endpoint.
+                </p>
+                
+                <div class="bg-gray-800 rounded-lg p-4 mb-6">
+                    <pre class="text-green-400 text-sm overflow-x-auto">
+<code>POST /api/analyze
+Content-Type: application/json
+
+{
+    "url": "https://example.com/login",
+    "analyze_content": false
+}
+
+# Response
+{
+    "url": "https://example.com/login",
+    "is_malicious": false,
+    "confidence": 0.15,
+    "risk_score": 0.12,
+    "warnings": [],
+    "features": {
+        "url_length": 28,
+        "has_https": true,
+        "is_shortened": false,
+        "has_suspicious_keywords": true
+    }
+}</code>
+                    </pre>
+                </div>
+                
+                <div class="flex justify-center">
+                    <a 
+                        href="#" 
+                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                        Get API Key
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-12 bg-gray-50 rounded-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">About PhishGuard</h2>
+        
+        <div class="bg-white p-8 rounded-lg shadow-md">
+            <div class="prose max-w-none">
+                <p class="text-gray-600 mb-6">
+                    PhishGuard is an AI-powered solution designed to protect users from phishing attacks and malicious websites. 
+                    Our mission is to make the internet a safer place by providing accurate and reliable URL analysis.
+                </p>
+                
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Our Technology</h3>
+                <p class="text-gray-600 mb-6">
+                    We use a combination of machine learning algorithms, threat intelligence feeds, and real-time analysis 
+                    to detect and prevent phishing attempts. Our system continuously learns and adapts to new threats as they emerge.
+                </p>
+                
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Stay Safe Online</h3>
+                <ul class="list-disc pl-5 text-gray-600 space-y-2 mb-6">
+                    <li>Always verify the URL before entering sensitive information</li>
+                    <li>Look for the padlock icon and "https://" in the address bar</li>
+                    <li>Be cautious of unsolicited emails or messages with links</li>
+                    <li>Keep your software and antivirus up to date</li>
+                    <li>Use strong, unique passwords for different accounts</li>
+                </ul>
+                
+                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                    <p class="text-blue-700">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        PhishGuard is for educational and informational purposes only. Always exercise caution when browsing the web.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlInput = document.getElementById('url-input');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const loadingDiv = document.getElementById('loading');
+        const resultsDiv = document.getElementById('results');
+        const newAnalysisBtn = document.getElementById('new-analysis');
+        
+        // Analyze button click handler
+        analyzeBtn.addEventListener('click', analyzeURL);
+        
+        // Allow Enter key to trigger analysis
+        urlInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analyzeURL();
+            }
+        });
+        
+        // New analysis button click handler
+        newAnalysisBtn.addEventListener('click', function() {
+            resultsDiv.classList.add('hidden');
+            urlInput.value = '';
+            urlInput.focus();
+        });
+        
+        // Function to analyze URL
+        async function analyzeURL() {
+            const url = urlInput.value.trim();
+            
+            if (!url) {
+                alert('Please enter a URL to analyze');
+                return;
+            }
+            
+            // Show loading state
+            loadingDiv.classList.remove('hidden');
+            resultsDiv.classList.add('hidden');
+            
+            try {
+                // Call the API
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ url, analyze_content: true })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Analysis failed');
+                }
+                
+                const data = await response.json();
+                
+                // Update the UI with results
+                displayResults(data);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while analyzing the URL. Please try again.');
+            } finally {
+                loadingDiv.classList.add('hidden');
+            }
+        }
+        
+        // Function to display results
+        function displayResults(data) {
+            // Update basic info
+            document.getElementById('analyzed-url').textContent = data.url;
+            document.getElementById('risk-level').textContent = getRiskLevel(data.risk_score);
+            document.getElementById('confidence').textContent = `${Math.round(data.confidence * 100)}%`;
+            
+            // Update domain info
+            const domainInfo = extractDomainInfo(data.url);
+            document.getElementById('domain').textContent = domainInfo.domain || 'N/A';
+            document.getElementById('tld').textContent = domainInfo.tld || 'N/A';
+            document.getElementById('https').textContent = data.url.startsWith('https') ? 'Yes' : 'No';
+            document.getElementById('url-length').textContent = `${data.url.length} characters`;
+            
+            // Update risk bar
+            const riskBar = document.getElementById('risk-bar');
+            const riskPercent = Math.min(Math.round(data.risk_score * 100), 100);
+            riskBar.style.width = `${riskPercent}%`;
+            riskBar.className = `h-2.5 rounded-full ${getRiskColorClass(data.risk_score)}`;
+            
+            // Update confidence bar
+            const confidenceBar = document.getElementById('confidence-bar');
+            const confidencePercent = Math.min(Math.round(data.confidence * 100), 100);
+            confidenceBar.style.width = `${confidencePercent}%`;
+            confidenceBar.className = `h-2.5 rounded-full ${getConfidenceColorClass(data.confidence)}`;
+            
+            // Update warnings
+            const warningsContainer = document.getElementById('warnings');
+            const noWarnings = document.getElementById('no-warnings');
+            
+            if (data.warnings && data.warnings.length > 0) {
+                warningsContainer.innerHTML = '';
+                data.warnings.forEach(warning => {
+                    const warningElement = document.createElement('div');
+                    warningElement.className = 'flex items-start p-3 bg-red-50 rounded-md';
+                    warningElement.innerHTML = `
+                        <i class="fas fa-exclamation-triangle text-red-500 mt-1 mr-2"></i>
+                        <span>${warning}</span>
+                    `;
+                    warningsContainer.appendChild(warningElement);
+                });
+                warningsContainer.classList.remove('hidden');
+                noWarnings.classList.add('hidden');
+            } else {
+                warningsContainer.classList.add('hidden');
+                noWarnings.classList.remove('hidden');
+            }
+            
+            // Update explanation
+            const explainContainer = document.getElementById('explanation');
+            if (explainContainer) {
+                explainContainer.innerHTML = '';
+                const items = [];
+                const f = data.features || {};
+                function pushIf(cond, text) { if (cond) items.push(text); }
+                pushIf(data.is_malicious, 'Model indicates high likelihood of phishing.');
+                pushIf(f.has_at_symbol, 'URL contains "@" symbol which can hide true destination.');
+                pushIf(f.is_shortened, 'Uses URL shortener which can obfuscate target.');
+                pushIf(f.has_uncommon_tld, 'Uncommon or low-reputation TLD.');
+                pushIf((f.num_subdomains || 0) >= 2, 'Multiple subdomains used.');
+                pushIf(f.has_port, 'Non-standard port specified in URL.');
+                pushIf((f.url_length || 0) > 100, 'Unusually long URL length.');
+                pushIf((f.entropy || 0) > 3.5, 'High domain entropy suggesting randomness.');
+                if (items.length === 0) {
+                    items.push('No strong phishing indicators detected based on current heuristics.');
+                }
+                items.slice(0, 6).forEach(t => {
+                    const p = document.createElement('div');
+                    p.className = 'flex items-start';
+                    p.innerHTML = '<i class="fas fa-circle text-gray-400 text-[8px] mt-2 mr-2"></i><span>' + t + '</span>';
+                    explainContainer.appendChild(p);
+                });
+            }
+            
+            // Update safety tip
+            updateSafetyTip(data);
+            
+            // Update result badge
+            const resultBadge = document.getElementById('result-badge');
+            if (data.is_malicious) {
+                resultBadge.textContent = 'Malicious';
+                resultBadge.className = 'px-4 py-2 rounded-full bg-red-100 text-red-800 text-sm font-semibold';
+            } else {
+                resultBadge.textContent = 'Safe';
+                resultBadge.className = 'px-4 py-2 rounded-full bg-green-100 text-green-800 text-sm font-semibold';
+            }
+            
+            // Show results
+            resultsDiv.classList.remove('hidden');
+        }
+        
+        // Helper function to extract domain info
+        function extractDomainInfo(url) {
+            try {
+                const domain = new URL(url).hostname;
+                const parts = domain.split('.');
+                const tld = parts.length > 1 ? parts[parts.length - 1] : '';
+                return {
+                    domain: domain,
+                    tld: tld
+                };
+            } catch (e) {
+                return { domain: '', tld: '' };
+            }
+        }
+        
+        // Helper function to get risk level text
+        function getRiskLevel(score) {
+            if (score < 0.3) return 'Low';
+            if (score < 0.7) return 'Medium';
+            return 'High';
+        }
+        
+        // Helper function to get risk color class
+        function getRiskColorClass(score) {
+            if (score < 0.3) return 'bg-green-500';
+            if (score < 0.7) return 'bg-yellow-500';
+            return 'bg-red-500';
+        }
+        
+        // Helper function to get confidence color class
+        function getConfidenceColorClass(score) {
+            if (score > 0.8) return 'bg-green-500';
+            if (score > 0.5) return 'bg-yellow-500';
+            return 'bg-gray-300';
+        }
+        
+        // Function to update safety tip based on analysis
+        function updateSafetyTip(data) {
+            const tipElement = document.getElementById('safety-tip');
+            let tip = '';
+            
+            if (data.is_malicious) {
+                tip = 'This URL appears to be malicious. Do not enter any personal information.';
+            } else if (data.risk_score > 0.5) {
+                tip = 'This URL has some suspicious characteristics. Proceed with caution.';
+            } else if (data.url.includes('login') || data.url.includes('signin')) {
+                tip = 'Always verify the login page is legitimate before entering your credentials.';
+            } else {
+                tip = 'This URL appears to be safe. However, always stay vigilant when browsing.';
+            }
+            
+            tipElement.textContent = tip;
+        }
+    });
+</script>
+{% endblock %}

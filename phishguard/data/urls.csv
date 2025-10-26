@@ -1,0 +1,7 @@
+url,label
+https://example.com,0
+http://bit.ly/2abcXYZ,1
+http://192.168.0.1/login,1
+https://accounts.google.com,0
+http://secure-update-paypal.com/login,1
+https://github.com,0
